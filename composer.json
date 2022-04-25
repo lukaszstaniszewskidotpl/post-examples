@@ -10,7 +10,7 @@
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.6",
         "doctrine/doctrine-migrations-bundle": "^3.2",
-        "doctrine/orm": "^2.12",
+        "doctrine/orm": "^2.11",
         "easycorp/easyadmin-bundle": "^4.1",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.4",
@@ -90,7 +90,8 @@
         ]
     },
     "conflict": {
-        "symfony/symfony": "*"
+        "symfony/symfony": "*",
+        "doctrine/orm": "2.12.0"
     },
     "extra": {
         "symfony": {
@@ -100,7 +101,7 @@
     },
     "require-dev": {
         "symfony/debug-bundle": "6.0.*",
-        "symfony/maker-bundle": "^1.39",
+        "symfony/maker-bundle": "^1.40",
         "symfony/stopwatch": "6.0.*",
         "symfony/web-profiler-bundle": "6.0.*"
     }

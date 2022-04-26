@@ -1,7 +1,16 @@
 version: '3.7'
 
 services:
-  database:
+  postgres:
+    image: postgres:14.2
+    environment:
+      POSTGRES_USER: main
+      POSTGRES_PASSWORD: main
+      POSTGRES_DB: main
+    ports:
+      - '5432:5432'
+
+  mysql:
     image: mysql:8
     environment:
       MYSQL_ROOT_PASSWORD: password

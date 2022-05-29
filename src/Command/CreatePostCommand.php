@@ -4,8 +4,13 @@ namespace App\Command;
 
 final class CreatePostCommand
 {
-    public function __construct(private string $title)
+    public function __construct(private readonly string $uuid, private readonly string $title)
     {
+    }
+
+    public function getUuid(): string
+    {
+        return $this->uuid;
     }
 
     public function getTitle(): string

@@ -28,6 +28,5 @@ class PostRepository extends ServiceEntityRepository
     public function add(Post $entity): void
     {
         $this->_em->persist($entity);
-        $this->_em->flush();
     }
 }

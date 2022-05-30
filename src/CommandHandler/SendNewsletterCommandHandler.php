@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\CommandHandler;
 
-use App\Command\CreatePostCommand;
+use App\Command\SendNewsletterCommand;
 use App\Repository\NewsletterUserRepository;
 use App\Repository\PostRepository;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
@@ -12,7 +12,7 @@ use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Notifier\Recipient\Recipient;
 
-#[AsMessageHandler(priority: 10)]
+#[AsMessageHandler]
 final class SendNewsletterCommandHandler
 {
     public function __construct(
@@ -22,9 +22,9 @@ final class SendNewsletterCommandHandler
     ) {
     }
 
-    public function __invoke(CreatePostCommand $command): void
+    public function __invoke(SendNewsletterCommand $command): void
     {
-        $post = $this->postRepository->getByUuid($command->getUuid());
+        $post = $this->postRepository->getByUuid($command->getPostUuid());
 
         foreach ($this->newsletterUserRepository->findAll() as $user) {
             $notification = (

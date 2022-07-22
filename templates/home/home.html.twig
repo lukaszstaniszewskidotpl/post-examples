@@ -1,5 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div>
+        <ul>
+            {% for dateTime in dateTimes %}
+                <li>
+                    <a href="{{ path('app_frame_index', {dateTime: dateTime}) }}" data-turbo-frame="example_frame">{{ dateTime }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 
+    <div>
+        <turbo-frame id="example_frame" loading="lazy" src="{{ path('app_frame_index', {dateTime: 'now'}) }}">
+            loading...
+        </turbo-frame>
+    </div>
 {% endblock %}

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use DateInterval;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +18,7 @@ class FrameController extends AbstractController
     {
         return $this->render('frame/index.html.twig', [
             'dateTime' => new DateTime($dateTime),
+            'nextDateTime' => (new DateTime($dateTime))->add(new DateInterval('P1D')),
         ]);
     }
 }

@@ -11,6 +11,12 @@
         </ul>
     </div>
 
+    <a href="{{ path('app_home_static') }}" data-turbo-action="replace">Go to static page on replace history status</a>
+    <br/>
+    <a href="{{ path('app_home_static') }}" data-turbo-action="restore">Go to static page on restore</a>
+    <br/>
+    <br/>
+
     <div>
         <turbo-frame id="example_frame" loading="lazy" src="{{ path('app_frame_index', {dateTime: 'now'}) }}">
             loading...

@@ -22,4 +22,15 @@
             loading...
         </turbo-frame>
     </div>
+
+    <div>
+        <span data-controller="hello"></span>
+    </div>
+
+    <div>
+        <span data-controller="copy">
+            <input type="text" placeholder="Write any text" data-copy-target="input" data-action="input->copy#onInput"/><br>
+            <span data-copy-target="output"></span>
+        </span>
+    </div>
 {% endblock %}

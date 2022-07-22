@@ -1,14 +1,14 @@
-<turbo-frame id="example_frame">
-    <strong>{{ dateTime | date('Y-m-d H:i:s:v') }}</strong>
-    <a href="{{ path('app_frame_index', {dateTime: (nextDateTime|date('Y-m-dH:i:s'))}) }}" data-turbo-frame="_self">Next day</a>
-</turbo-frame>
+{#<turbo-frame id="example_frame">#}
+{#    <strong>{{ dateTime | date('Y-m-d H:i:s:v') }}</strong>#}
+{#    <a href="{{ path('app_frame_index', {dateTime: (nextDateTime|date('Y-m-dH:i:s'))}) }}" data-turbo-frame="_self">Next day</a>#}
+{#</turbo-frame>#}
 
-{#{% extends 'base.html.twig' %}#}
+{% extends 'base.html.twig' %}
 
-{#{% block body %}#}
-{#    <h1>Data in body</h1>#}
+{% block body %}
+    <h1>Data in body</h1>
 
-{#    <turbo-frame id="example_frame">#}
-{#        <span>Show only data in frame: <strong>{{ dateTime | date('Y-m-d H:i:s:v') }}</strong></span>#}
-{#    </turbo-frame>#}
-{#{% endblock %}#}
+    <turbo-frame id="example_frame">
+        <span>Show only data in frame: <strong>{{ dateTime | date('Y-m-d H:i:s:v') }}</strong></span>
+    </turbo-frame>
+{% endblock %}

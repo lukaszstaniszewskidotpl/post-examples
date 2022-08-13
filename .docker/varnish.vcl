@@ -21,4 +21,18 @@ sub vcl_recv {
 
         return (pipe);
     }
+
+    if (req.http.Cookie) {
+        return (hash);
+    }
+}
+
+sub vcl_hash {
+  if (req.http.cookie ~ "user_group=") {
+    set req.http.USER-GROUP = regsub(req.http.cookie, "^.*?user_group=([^;]+);*.*$", "\1");
+
+    if (req.http.USER-GROUP ~ "^(DELTA|BETA|ALPHA)$") {
+        hash_data(req.http.USER-GROUP);
+    }
+  }
 }

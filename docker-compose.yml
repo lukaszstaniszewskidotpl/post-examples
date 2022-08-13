@@ -29,11 +29,6 @@ services:
     image: rabbitmq:3.9-management
     ports: [ 5672, 15672 ]
 
-  blackfire:
-    image: blackfire/blackfire
-    env_file: .env.local
-    ports: [ 8707 ]
-
   mailer:
     image: schickling/mailcatcher
     ports: [1025, 1080]

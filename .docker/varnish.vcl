@@ -34,5 +34,7 @@ sub vcl_hash {
     if (req.http.USER-GROUP ~ "^(DELTA|BETA|ALPHA)$") {
         hash_data(req.http.USER-GROUP);
     }
+
+    unset req.http.USER-GROUP;
   }
 }

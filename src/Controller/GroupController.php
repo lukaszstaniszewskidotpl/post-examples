@@ -6,11 +6,12 @@ namespace App\Controller;
 
 use App\Util\DateTimeResponseTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class GroupController
+class GroupController extends AbstractController
 {
     use DateTimeResponseTrait;
 

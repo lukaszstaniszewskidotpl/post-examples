@@ -22,6 +22,13 @@ sub vcl_recv {
         return (pipe);
     }
 
+    if (req.url ~ "^[^?]*\.(css|js|png|svg|webp)(\?.*)?$") {
+        set req.http.X-Static-File = "true";
+        unset req.http.Cookie;
+
+        return(hash);
+    }
+
     if (req.http.Cookie) {
         return (hash);
     }
@@ -37,4 +44,10 @@ sub vcl_hash {
 
     unset req.http.USER-GROUP;
   }
+}
+
+sub vcl_backend_response {
+     if (bereq.http.X-Static-File == "true") {
+        set beresp.ttl = 60s;
+     }
 }

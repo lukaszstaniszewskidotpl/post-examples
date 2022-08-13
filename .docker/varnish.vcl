@@ -12,3 +12,13 @@ backend default {
         .threshold = 3;
     }
 }
+
+sub vcl_recv {
+    set req.url = regsuball(req.url, "(gclid|fbclid|utm_[a-zA-Z0-9]+)=[%.-_A-z0-9]+&?", "");
+
+    if (req.url ~ "(\?|&)live=0de080c_[a-zA-Z0-9]{1,}+&?") {
+        set req.url = regsuball(req.url, "(\?|&)live=0de080c_[a-zA-Z0-9]{1,}+&?", "");
+
+        return (pipe);
+    }
+}

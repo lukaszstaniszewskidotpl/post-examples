@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="event-data"></div>
+
+    <script>
+        const eventSource = new EventSource("{{ mercure('http://127.0.0.1:8000/product/' ~ id)|escape('js') }}");
+        eventSource.onmessage = event => {
+            const data = JSON.parse(event.data);
+
+            console.log(data);
+
+            document.getElementById('event-data').innerText = data.status;
+        }
+    </script>
+{% endblock %}

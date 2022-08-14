@@ -33,6 +33,25 @@ services:
     image: schickling/mailcatcher
     ports: [1025, 1080]
 
+  mercure:
+    image: dunglas/mercure
+    ports:
+      - "9000:80"
+    environment:
+      SERVER_NAME: ':80'
+      MERCURE_PUBLISHER_JWT_KEY: '!publisher_password!'
+      MERCURE_SUBSCRIBER_JWT_KEY: '!subscriber_password!'
+      MERCURE_EXTRA_DIRECTIVES: |
+        cors_origins http://127.0.0.1:8000
+    command: /usr/bin/caddy run -config /etc/caddy/Caddyfile.dev
+    volumes:
+      - mercure_data:/data
+      - mercure_config:/config
+
 volumes:
   mysql_local:
+    driver: local
+  mercure_data:
+    driver: local
+  mercure_config:
     driver: local

@@ -15,14 +15,14 @@ class HomeController extends AbstractController
     use DateTimeResponseTrait;
 
     #[Route('/')]
-    #[Cache(maxage: 30, public: true, mustRevalidate: false)]
+    #[Cache(maxage: 120, public: true, mustRevalidate: false)]
     public function index(): Response
     {
         return $this->generateResponse();
     }
 
     #[Route('/revalidate')]
-    #[Cache(maxage: 20, public: true, mustRevalidate: true, staleWhileRevalidate: 5, staleIfError: 10)]
+    #[Cache(maxage: 60, public: true, mustRevalidate: true, staleWhileRevalidate: 5, staleIfError: 10)]
     public function revalidate(): Response
     {
         return $this->generateResponse();

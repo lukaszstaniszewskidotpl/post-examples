@@ -21,16 +21,12 @@ class HomeController extends AbstractController
         return $this->generateResponse();
     }
 
-    #[Route('/revalidate')]
-    #[Cache(maxage: 60, public: true, mustRevalidate: true, staleWhileRevalidate: 5, staleIfError: 10)]
-    public function revalidate(): Response
+    #[Route('/many/{some_text}')]
+    #[Cache(maxage: 120, public: true, mustRevalidate: false)]
+    public function withText(string $someText): Response
     {
-        return $this->generateResponse();
-    }
-
-    #[Route('/without-cache')]
-    public function withoutCache(): Response
-    {
-        return $this->generateResponse();
+        return new Response(
+            sprintf('%s </br> %s', $someText, $this->generateDateTime())
+        );
     }
 }

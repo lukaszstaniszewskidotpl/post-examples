@@ -13,14 +13,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 #[AsCommand(
-    name: 'purge:url',
-    description: 'Purge in varnish url',
+    name: 'purge:collection',
+    description: 'Purge collection urls by regex',
 )]
-class PurgeUrlCommand extends Command
+class PurgeCollectionCommand extends Command
 {
-    private const URL = 'url';
-
-    private const VARNISH_URL = 'http://varnish';
+    private const URLS = 'urls';
+    private const REGEX = 'regex';
 
     public function __construct(private readonly HttpClientInterface $httpClient)
     {
@@ -30,20 +29,15 @@ class PurgeUrlCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addArgument(self::URL, InputArgument::OPTIONAL, 'Url for purge')
+            ->addArgument(self::URLS, InputArgument::IS_ARRAY, 'Urls')
+            ->addArgument(self::REGEX,InputArgument::REQUIRED, 'Regex')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $url = sprintf(
-            '%s%s',
-            self::VARNISH_URL,
-            $input->hasArgument(self::URL) ? $input->getArgument(self::URL) : ''
-        );
-
-        foreach (['GET', 'GET', 'PURGE', 'GET'] as $method) {
-            $response = $this->httpClient->request($method, $url);
+        foreach ($input->getArgument(self::URLS) as $url) {
+            $response = $this->httpClient->request('GET', $url);
 
             $output->writeln($response->getContent());
 
@@ -53,6 +47,8 @@ class PurgeUrlCommand extends Command
 
             sleep(1);
         }
+
+
 
         return Command::SUCCESS;
     }

@@ -21,6 +21,24 @@ class PurgeUrlCommand extends Command
     private const URL = 'url';
 
     private const VARNISH_URL = 'http://varnish';
+    private const DATA = [
+        [
+            'method' => 'GET',
+            'label' => 'Create cache',
+        ],
+        [
+            'method' => 'GET',
+            'label' => 'Check cache is working',
+        ],
+        [
+            'method' => 'PURGE',
+            'label' => 'Purge',
+        ],
+        [
+            'method' => 'GET',
+            'label' => 'Check purge is working',
+        ],
+    ];
 
     public function __construct(private readonly HttpClientInterface $httpClient)
     {
@@ -42,14 +60,11 @@ class PurgeUrlCommand extends Command
             $input->hasArgument(self::URL) ? $input->getArgument(self::URL) : ''
         );
 
-        foreach (['GET', 'GET', 'PURGE', 'GET'] as $method) {
-            $response = $this->httpClient->request($method, $url);
+        foreach (self::DATA as $data) {
+            $output->writeln($data['label']);
+            $response = $this->httpClient->request($data['method'], $url);
 
             $output->writeln($response->getContent());
-
-            if ($response->getStatusCode() !== Response::HTTP_OK) {
-                return Command::FAILURE;
-            }
 
             sleep(1);
         }

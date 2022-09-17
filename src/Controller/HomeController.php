@@ -21,12 +21,12 @@ class HomeController extends AbstractController
         return $this->generateResponse();
     }
 
-    #[Route('/many/{some_text}')]
+    #[Route('/many/{someText}')]
     #[Cache(maxage: 120, public: true, mustRevalidate: false)]
     public function withText(string $someText): Response
     {
         return new Response(
-            sprintf('%s </br> %s', $someText, $this->generateDateTime())
+            sprintf('%s %s', $someText, $this->generateDateTime())
         );
     }
 }

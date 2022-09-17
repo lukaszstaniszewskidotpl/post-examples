@@ -26,4 +26,18 @@ sub vcl_recv {
 
         return (purge);
     }
+
+    if (req.method == "BAN") {
+        if (!client.ip ~ purge) {
+            return (synth(405));
+        }
+
+        if (!req.http.X-Purge-Regex) {
+            return (purge);
+        }
+
+        ban("req.http.host == " + req.http.host + " && req.url ~ " + req.http.X-Purge-Regex);
+
+        return(synth(200, "Ban added"));
+    }
 }

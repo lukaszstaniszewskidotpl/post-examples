@@ -21,6 +21,7 @@ class PurgeUrlCommand extends Command
     private const URL = 'url';
 
     private const VARNISH_URL = 'http://varnish';
+
     private const DATA = [
         [
             'method' => 'GET',

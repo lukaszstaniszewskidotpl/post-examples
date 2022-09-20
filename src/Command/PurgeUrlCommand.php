@@ -39,6 +39,10 @@ class PurgeUrlCommand extends Command
             'method' => 'GET',
             'label' => 'Check purge is working',
         ],
+        [
+            'method' => 'GET',
+            'label' => 'Check after purge cache is working',
+        ],
     ];
 
     public function __construct(private readonly HttpClientInterface $httpClient)

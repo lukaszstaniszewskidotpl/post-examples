@@ -51,6 +51,9 @@ class BanCommand extends Command
         $output->writeln('Check if ban working');
         $this->callToUrls($urls, $output);
 
+        $output->writeln('Check if cache working after ban');
+        $this->callToUrls($urls, $output);
+
         return Command::SUCCESS;
     }
 

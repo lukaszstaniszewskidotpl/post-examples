@@ -1,15 +1,6 @@
 version: '3.7'
 
 services:
-  postgres:
-    image: postgres:14.2
-    environment:
-      POSTGRES_USER: main
-      POSTGRES_PASSWORD: main
-      POSTGRES_DB: main
-    ports:
-      - '5432:5432'
-
   mysql:
     image: mysql:8
     environment:
@@ -19,19 +10,6 @@ services:
       - mysql_local:/var/lib/mysql
     ports:
       - '3306:3306'
-
-  redis:
-    image: redis:6.2-alpine3.14
-    ports:
-      - '6379:6379'
-
-  rabbitmq:
-    image: rabbitmq:3.9-management
-    ports: [ 5672, 15672 ]
-
-  mailer:
-    image: schickling/mailcatcher
-    ports: [1025, 1080]
 
 volumes:
   mysql_local:

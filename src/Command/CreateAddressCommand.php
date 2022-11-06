@@ -17,6 +17,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'create:address')]
 class CreateAddressCommand extends Command
 {
+    private const RECORDS = 200_000;
+
     public function __construct(
         private readonly AddressUuidRepository $uuidRepository,
         private readonly AddressHashRepository $hashRepository,
@@ -27,11 +29,11 @@ class CreateAddressCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $progressBar = new ProgressBar($output, 1_500_001);
+        $progressBar = new ProgressBar($output, self::RECORDS);
 
         $faker = Factory::create('pl_PL');
 
-        for ($i = 0; $i <= 1_500_000; $i++) {
+        for ($i = 0; $i <= self::RECORDS; $i++) {
             $progressBar->advance();
 
             $addresses = AddressFactory::build($faker);

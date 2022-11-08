@@ -16,6 +16,30 @@ services:
     ports:
       - '6379:6379'
 
+  nginx:
+    image: nginx:latest
+    ports:
+      - '8000:80'
+    volumes:
+      - './:/app'
+      - '.docker/nginx/site.conf:/etc/nginx/conf.d/default.conf'
+    depends_on:
+      - fpm
+    links:
+      - fpm
+
+  fpm:
+    image: php:8.1-fpm
+    volumes:
+      - './:/app'
+
+  prometheus:
+    image: bitnami/prometheus
+    ports:
+      - '9090:9090'
+    volumes:
+      - '.docker/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml'
+
 volumes:
   mysql_local:
     driver: local

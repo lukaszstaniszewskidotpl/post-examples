@@ -28,6 +28,20 @@ services:
     links:
       - fpm
 
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:latest
+    ports:
+      - '9113:9113'
+    command:
+      - -nginx.scrape-uri
+      - http://nginx:8080/stub_status
+    depends_on:
+      - prometheus
+      - nginx
+    links:
+      - nginx
+      - prometheus
+
   fpm:
     image: php:8.1-fpm
     volumes:

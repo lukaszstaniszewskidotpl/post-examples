@@ -1,23 +1,21 @@
 global:
   scrape_interval: 10s
+  evaluation_interval: 10s
 
-#alerting:
-#  groups:
-#    - name: example
-#      rules:
-#        - alert: HighRequestLatency
-#          expr: job:request_latency_seconds:mean5m{job="myjob"} > 0.5
-#          for: 10m
-#          labels:
-#            severity: page
-#          annotations:
-#            summary: High request latency
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - 'alertmanager:9093'
+
+rule_files:
+  - '/etc/prometheus/prometheus.rules.yml'
 
 scrape_configs:
-  - job_name: "prometheus_master"
+  - job_name: 'prometheus_master'
     scrape_interval: 5s
     static_configs:
-      - targets: ["localhost:9090"]
+      - targets: ['localhost:9090']
   - job_name: 'nginx_status'
     metrics_path: '/metrics'
     static_configs:

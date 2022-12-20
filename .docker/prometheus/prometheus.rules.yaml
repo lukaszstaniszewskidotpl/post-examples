@@ -1,0 +1,10 @@
+groups:
+  - name: Nginx instance is health
+    rules:
+      - alert: NginxInstanceUp
+        expr: nginx_up == 0
+        for: 10s
+        labels:
+          severity: critical
+        annotations:
+          summary: Nginx instance up

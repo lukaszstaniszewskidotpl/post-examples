@@ -28,6 +28,10 @@ services:
     links:
       - fpm
 
+  mailer:
+    image: schickling/mailcatcher
+    ports: [ 1025, 1080 ]
+
   nginx-exporter:
     image: nginx/nginx-prometheus-exporter:latest
     ports:
@@ -53,6 +57,18 @@ services:
       - '9090:9090'
     volumes:
       - '.docker/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml'
+      - '.docker/prometheus/prometheus.rules.yaml:/etc/prometheus/prometheus.rules.yml'
+
+  alertmanager:
+    image: bitnami/alertmanager:0.24.0
+    volumes:
+      - '.docker/prometheus/alertmanager.yaml:/etc/prometheus/alertmanager.yml'
+    ports:
+      - '9093:9093'
+    depends_on:
+      - prometheus
+    links:
+      - mailer
 
   grafana:
     image: grafana/grafana:9.3.2

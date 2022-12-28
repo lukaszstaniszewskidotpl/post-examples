@@ -1,3 +1,42 @@
 global:
   smtp_smarthost: 'mailer:1025'
   smtp_from: 'prometheus@lukaszstaniszewski.pl'
+  resolve_timeout: '5m'
+  http_config:
+    follow_redirects: true
+  smtp_require_tls: false
+
+# Konfiguracja wywoływania alertów
+route:
+  group_by: [ 'alertname' ]
+  group_wait: 30s
+  group_interval: 5m
+
+  repeat_interval: 3h
+
+  receiver: 'team-it-mails'
+
+  routes:
+    - matchers:
+        - 'alertname="NginxInstanceUp"'
+        - 'severity="critical"'
+      receiver: 'team-it-mails'
+
+# Służy do wyciszania alertów jeżeli trafiają identyczne
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal:
+      - 'alertname'
+      - 'job'
+      - 'instance'
+
+# Docelowe miejsce
+receivers:
+  - name: 'team-it-mails'
+    email_configs:
+      - to: 'it@lukaszstaniszewski.pl'
+
+templates: []

@@ -62,7 +62,7 @@ services:
   alertmanager:
     image: bitnami/alertmanager:0.24.0
     volumes:
-      - '.docker/prometheus/alertmanager.yaml:/etc/prometheus/alertmanager.yml'
+      - '.docker/prometheus/alertmanager.yaml:/opt/bitnami/alertmanager/conf/config.yml'
     ports:
       - '9093:9093'
     depends_on:

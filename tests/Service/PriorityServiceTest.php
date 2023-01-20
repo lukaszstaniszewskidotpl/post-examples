@@ -30,10 +30,10 @@ class PriorityServiceTest extends TestCase
      * @dataProvider getAnotherPriority
      * @test
      */
-    public function shouldBeReturnAnotherPriority(): void
+    public function shouldBeReturnAnotherPriority(int $priority): void
     {
-        self::assertTrue(
-            $this->service->shouldBeHighPriority(2)
+        self::assertFalse(
+            $this->service->shouldBeHighPriority($priority)
         );
     }
 

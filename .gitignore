@@ -17,3 +17,19 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 .idea
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
+
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+infection-log.json
+infection.json5
+infection.log
+per-mutator.md
+summary.log

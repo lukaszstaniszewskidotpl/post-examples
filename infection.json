@@ -1,0 +1,34 @@
+{
+  "source": {
+    "directories": [
+      "src"
+    ],
+    "excludes": [
+      "{.*/Repository/.*}",
+      "{.*/Exception/.*}",
+      "{.*/Entity/.*}",
+      "{.*/DTO/.*}",
+      "{.*/Command/.*}",
+      "{.*/Query/.*}",
+      "{.*/Event/.*}",
+      "{.*/ReadModel/.*}",
+      "{.*/Factory/.*}",
+      "{.*/Controller/.*}",
+      "/\\.interface\\.php/",
+      "*/Kernel.php"
+    ]
+  },
+  "logs": {
+    "text": "infection.log",
+    "summary": "summary.log",
+    "json": "infection-log.json",
+    "perMutator": "per-mutator.md"
+  },
+  "mutators": {
+    "@default": true,
+    "@function_signature": false
+  },
+  "minMsi": 80,
+  "minCoveredMsi": 80,
+  "testFramework":"phpunit"
+}

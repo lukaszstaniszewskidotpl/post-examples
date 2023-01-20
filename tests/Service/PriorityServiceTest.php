@@ -18,11 +18,20 @@ class PriorityServiceTest extends TestCase
 
     /**
      * @test
+     * @dataProvider getHighPriority
      */
-    public function shouldBeReturnHighPriority(): void
+    public function shouldBeReturnHighPriority(int $priority): void
     {
         self::assertTrue(
-            $this->service->shouldBeHighPriority(2)
+            $this->service->shouldBeHighPriority($priority)
+        );
+    }
+
+    public function getHighPriority(): array
+    {
+        return array_map(
+            static fn (int $priority) => [$priority],
+            range(1, 2)
         );
     }
 
@@ -30,19 +39,19 @@ class PriorityServiceTest extends TestCase
      * @dataProvider getAnotherPriority
      * @test
      */
-    public function shouldBeReturnAnotherPriority(): void
+    public function shouldBeReturnAnotherPriority(int $priority): void
     {
-        self::assertTrue(
-            $this->service->shouldBeHighPriority(2)
+        self::assertFalse(
+            $this->service->shouldBeHighPriority($priority)
         );
     }
 
     public function getAnotherPriority(): array
     {
-        return [
-            [-100],
-            [5],
-        ];
+        return array_map(
+            static fn (int $priority) => [$priority],
+            [0, -1, 3, 4]
+        );
     }
 }
 
